@@ -4,7 +4,9 @@ import { POSTS } from '../utils/posts-mock';
 import { PostModel } from '../utils/post-model';
 import { Layout } from '../components/Layout';
 import { Header } from '../components/Header';
+
 import { PostList } from '../components/PostList';
+import prisma from '../lib/prisma';
 
 type HomeProps = {
   feed: PostModel[];
@@ -27,7 +29,16 @@ export default function Home({ feed }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = POSTS;
+  const feed = await prisma.post.findMany({
+    where: { published: true },
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 
   return {
     props: { feed },

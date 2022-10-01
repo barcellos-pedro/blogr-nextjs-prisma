@@ -9,8 +9,8 @@ export const PostList = ({ items }: PostListProps) => {
   return (
     <>
       {items.map((item) => (
-        <section className="mt-8">
-          <Post key={item.id} post={item} />
+        <section key={item.id} className="mt-8">
+          <Post post={item} />
         </section>
       ))}
     </>
