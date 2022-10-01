@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { HTMLAttributes, ReactNode } from 'react';
 import { BackToHome } from './BackToHome';
 
@@ -12,9 +13,21 @@ export const Layout = ({
   ...divAttrs
 }: LayoutProps) => {
   return (
-    <div className="p-10 h-screen bg-home" {...divAttrs}>
+    <main className="p-10 h-screen bg-home" {...divAttrs}>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="og:title" content="Next.js Blog" />
+        <meta
+          name="description"
+          content="Fullstack app with Next.js, Prisma, and PostgreSQL"
+        />
+      </Head>
       {children}
-      {!home && <BackToHome />}
-    </div>
+      {!home && (
+        <footer>
+          <BackToHome />
+        </footer>
+      )}
+    </main>
   );
 };
