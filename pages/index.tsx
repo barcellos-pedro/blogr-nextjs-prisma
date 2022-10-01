@@ -4,7 +4,6 @@ import { POSTS } from '../utils/posts-mock';
 import { PostModel } from '../utils/post-model';
 import { Layout } from '../components/Layout';
 import { Header } from '../components/Header';
-import { Post } from '../components/Post';
 import { PostList } from '../components/PostList';
 
 type HomeProps = {

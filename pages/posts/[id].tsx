@@ -1,6 +1,5 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import ReactMarkdown from 'react-markdown';
 import { POSTS } from '../../utils/posts-mock';
 import { PostModel } from '../../utils/post-model';
 import { Header } from '../../components/Header';
