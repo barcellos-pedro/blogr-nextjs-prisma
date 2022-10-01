@@ -1,10 +1,10 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
-import { Post } from '../components/Post/Post';
 import { POSTS } from '../utils/posts-mock';
 import { PostModel } from '../utils/post-model';
-import { Layout } from '../components/Layout/Layout';
-import Header from '../components/Header/Header';
+import { Layout } from '../components/Layout';
+import Header from '../components/Header';
+import { Post } from '../components/Post';
 
 type BlogProps = {
   feed: PostModel[];
@@ -12,10 +12,10 @@ type BlogProps = {
 
 export default function Blog({ feed }: BlogProps) {
   return (
-    <Layout home>
+    <Layout home >
       <Header />
-      <h2>Posts</h2>
-      <main className="container">
+      <h2 className="text-black font-bold text-2xl mb-7">Public Feed</h2>
+      <main className="bg-white rounded p-8">
         {feed.map((post) => (
           <Post key={post.id} post={post} />
         ))}

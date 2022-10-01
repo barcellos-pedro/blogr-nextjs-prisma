@@ -3,32 +3,27 @@ import { GetServerSideProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import { POSTS } from '../../utils/posts-mock';
 import { PostModel } from '../../utils/post-model';
-import Header from '../../components/Header/Header';
-import { Layout } from '../../components/Layout/Layout';
-import style from './Posts.module.css';
+import Header from '../../components/Header';
+import { Layout } from '../../components/Layout';
+import { Post } from '../../components/Post';
 
 type PostProps = {
   post: PostModel;
 };
 
-export default function Post({ post }: PostProps) {
-  const postTitle = post.published ? post.title : `${post.title} (Draft)`;
-  const authorName = post.author.name ? post.author.name : 'Unknown author';
-
+export default function PostPage({ post }: PostProps) {
   return (
-    <Layout className={style.page}>
-      <Header title="Post" />
-      <article>
-        <h2>{postTitle}</h2>
-        <p>By {authorName}</p>
-        <ReactMarkdown children={post.content} />
+    <Layout>
+      <Header />
+      <article className="bg-white rounded p-8 mb-8">
+        <Post post={post} />
       </article>
     </Layout>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = POSTS.find((it) => it.id === params.id);
+  const post = POSTS.find((post) => post.id === params.id);
 
   return {
     props: { post },
