@@ -12,12 +12,14 @@ export const Post = ({ post }: PostProps) => {
   const authorName = post.author.name ? post.author.name : 'Unknown author';
 
   return (
-    <Link href={`/posts/${post.id}`}>
-      <a>
-        <h2 className="font-bold text-xl">{postTitle}</h2>
-        <small className="text-zinc-500">By {authorName}</small>
-        <ReactMarkdown children={post.content} />
-      </a>
-    </Link>
+    <>
+      <Link href={`/posts/${post.id}`}>
+        <a>
+          <h2 className="font-bold text-xl">{postTitle}</h2>
+        </a>
+      </Link>
+      <small className="text-zinc-500">By {authorName}</small>
+      <ReactMarkdown children={post.content} />
+    </>
   );
 };

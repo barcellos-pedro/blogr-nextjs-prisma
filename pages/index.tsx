@@ -5,6 +5,7 @@ import { PostModel } from '../utils/post-model';
 import { Layout } from '../components/Layout';
 import { Header } from '../components/Header';
 import { Post } from '../components/Post';
+import { PostList } from '../components/PostList';
 
 type HomeProps = {
   feed: PostModel[];
@@ -16,9 +17,11 @@ export default function Home({ feed }: HomeProps) {
       <Header />
       <h2 className="text-black font-bold text-2xl mb-7">Public Feed</h2>
       <main className="bg-white rounded p-8">
-        {feed.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+        {!feed.length ? (
+          <p>There are no posts yet</p>
+        ) : (
+          <PostList items={feed} />
+        )}
       </main>
     </Layout>
   );
