@@ -7,6 +7,7 @@ import { Header } from '../components/Header';
 
 import { PostList } from '../components/PostList';
 import prisma from '../lib/prisma';
+import Head from 'next/head';
 
 type HomeProps = {
   feed: PostModel[];
@@ -15,15 +16,18 @@ type HomeProps = {
 export default function Home({ feed }: HomeProps) {
   return (
     <Layout home>
+      <Head>
+        <title>Home</title>
+      </Head>
       <Header />
       <h2 className="text-black font-bold text-2xl mb-7">Public Feed</h2>
-      <main className="bg-white rounded p-8">
+      <div className="bg-white rounded p-8">
         {!feed.length ? (
           <p>There are no posts yet</p>
         ) : (
           <PostList items={feed} />
         )}
-      </main>
+      </div>
     </Layout>
   );
 }
