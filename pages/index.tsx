@@ -3,16 +3,16 @@ import { GetStaticProps } from 'next';
 import { POSTS } from '../utils/posts-mock';
 import { PostModel } from '../utils/post-model';
 import { Layout } from '../components/Layout';
-import Header from '../components/Header';
+import { Header } from '../components/Header';
 import { Post } from '../components/Post';
 
-type BlogProps = {
+type HomeProps = {
   feed: PostModel[];
 };
 
-export default function Blog({ feed }: BlogProps) {
+export default function Home({ feed }: HomeProps) {
   return (
-    <Layout home >
+    <Layout home>
       <Header />
       <h2 className="text-black font-bold text-2xl mb-7">Public Feed</h2>
       <main className="bg-white rounded p-8">
@@ -29,6 +29,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { feed },
-    revalidate: 10,
+    revalidate: 10000,
   };
 };

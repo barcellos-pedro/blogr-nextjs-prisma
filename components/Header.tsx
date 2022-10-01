@@ -8,14 +8,12 @@ export const Header = () => {
     router.pathname === path ? 'text-zinc-500 ' : 'text-black';
 
   return (
-    <nav className='mb-7'>
-      <header>
+    <header className="mb-7">
+      <nav>
         <Link href="/">
-          <a className={` font-bold ${isActive('/')}`}>Feed</a>
+          <a className={`font-bold ${isActive('/')}`}>Feed</a>
         </Link>
-      </header>
-    </nav>
+      </nav>
+    </header>
   );
 };
-
-export default Header;
