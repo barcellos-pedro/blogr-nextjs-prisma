@@ -1,0 +1,12 @@
+.layout {
+  padding: 2rem;
+}
+
+.backToHome {
+  text-decoration: none;
+  color: black;
+}
+
+.backToHome:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,22 @@
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.left a[data-active='true'] {
+  color: gray;
+}
+
+.left a {
+  text-decoration: none;
+  color: #000;
+  display: inline-block;
+}
+
+.left a + a {
+  margin-left: 1rem;
+}
+
+.bold {
+  font-weight: bold;
+}
