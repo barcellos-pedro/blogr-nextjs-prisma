@@ -1,13 +1,14 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import { POSTS } from '../../utils/posts-mock';
+import Head from 'next/head';
+
 import { PostModel } from '../../utils/post-model';
 import { Header } from '../../components/Header';
 import { Layout } from '../../components/Layout';
 import { Post } from '../../components/Post';
-import Head from 'next/head';
+import prisma from '../../lib/prisma';
 
-type PostProps = {
+interface PostProps {
   post: PostModel;
 };
 
@@ -26,7 +27,16 @@ export default function PostPage({ post }: PostProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = POSTS.find((post) => post.id === params.id);
+  const post = await prisma.post.findUnique({
+    where: {
+      id: String(params?.id),
+    },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
 
   return {
     props: { post },
