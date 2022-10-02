@@ -1,18 +1,15 @@
-import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { LoggedInLinks } from './LoggedInLinks';
+import { GuestLinks } from './GuestLinks';
 
 export const Header = () => {
-  const router = useRouter();
-  const isActive = (path: string) =>
-    router.pathname === path ? 'text-zinc-500 ' : 'text-black';
+  const { data: session, status } = useSession();
 
   return (
     <header className="mb-7">
-      <nav>
-        <Link href="/">
-          <a className={`font-bold ${isActive('/')}`}>Feed</a>
-        </Link>
+      <nav className="flex items-center justify-between flex-wrap gap-2">
+        {!session ? <GuestLinks /> : <LoggedInLinks />}
+        {status === 'loading' && <p>Validation session...</p>}
       </nav>
     </header>
   );
