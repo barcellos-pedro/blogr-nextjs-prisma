@@ -1,6 +1,5 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
-import { POSTS } from '../utils/posts-mock';
 import { PostModel } from '../utils/post-model';
 import { Layout } from '../components/Layout';
 import { Header } from '../components/Header';
