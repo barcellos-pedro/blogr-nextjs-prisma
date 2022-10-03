@@ -1,9 +1,18 @@
 import { useSession } from 'next-auth/react';
 import { LoggedInLinks } from './LoggedInLinks';
 import { GuestLinks } from './GuestLinks';
+import { Spinner } from './Spinner';
 
 export const Header = () => {
   const { data: session, status } = useSession();
+
+  if (status === 'loading') {
+    return (
+      <header className="mb-7 flex justify-end">
+        <Spinner />
+      </header>
+    );
+  }
 
   return (
     <header className="mb-7">
@@ -13,7 +22,6 @@ export const Header = () => {
         ) : (
           <LoggedInLinks user={{ ...session.user }} />
         )}
-        {status === 'loading' && <p>Validation session...</p>}
       </nav>
     </header>
   );
