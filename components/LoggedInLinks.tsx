@@ -3,6 +3,12 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { isActiveLink } from '../utils/active-link';
 import Image from 'next/image';
+import { Popover } from '@headlessui/react';
+import {
+  PencilSquareIcon,
+  BookOpenIcon,
+  ArrowLeftOnRectangleIcon,
+} from '@heroicons/react/24/outline';
 
 interface UserData {
   name?: string;
@@ -23,21 +29,42 @@ export const LoggedInLinks = ({ user }: LoggedInLinksProps) => {
         <a className={`font-bold ${isActiveLink(router, '/')}`}>Feed</a>
       </Link>
 
-      <div className="flex items-center flex-wrap gap-7">
-        <Image width={50} height={50} src={user.image} className='rounded-full' />
-        <p>
-          {user.name} {'\u2022'} {user.email}
-        </p>
-        <Link href="/drafts">
-          <a className={`${isActiveLink(router, '/drafts')}`}>My drafts</a>
-        </Link>
-        <Link href="/create">
-          <a>Create</a>
-        </Link>
-        <button onClick={() => signOut()}>
-          <a>Log out</a>
-        </button>
-      </div>
+      <Popover className="relative">
+        <Popover.Button className="ring ring-transparent rounded-full outline-none focus:ring-zinc-400 hover:ring-zinc-400 duration-300">
+          <Image
+            width={50}
+            height={50}
+            src={user.image}
+            className="rounded-full"
+          />
+        </Popover.Button>
+        <Popover.Panel className="absolute mt-2 right-0 flex flex-col bg-white rounded p-4 shadow shadow-zinc-400 ">
+          <p className="text-center w-full font-semibold">{user.name}</p>
+          <p className="text-zinc-500">{user.email}</p>
+          <hr className="w-10/12 mx-auto my-4 border-black" />
+          <div className="flex flex-col gap-3">
+            <Link href="/drafts">
+              <a className="outline-none p-2 flex gap-2 hover:bg-sky-200 rounded duration-300 focus:bg-sky-200">
+                <PencilSquareIcon width={20} height={20} />
+                My drafts
+              </a>
+            </Link>
+            <Link href="/create">
+              <a className="outline-none p-2 flex gap-2 hover:bg-sky-200 rounded duration-300 focus:bg-sky-200">
+                <BookOpenIcon width={20} height={20} />
+                Create
+              </a>
+            </Link>
+            <button
+              className="outline-none p-2 flex gap-2 hover:bg-sky-200 rounded duration-300 focus:bg-sky-200"
+              onClick={() => signOut()}
+            >
+              <ArrowLeftOnRectangleIcon width={20} height={20} />
+              Log out
+            </button>
+          </div>
+        </Popover.Panel>
+      </Popover>
     </>
   );
 };
