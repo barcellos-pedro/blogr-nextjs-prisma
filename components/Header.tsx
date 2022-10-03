@@ -8,7 +8,11 @@ export const Header = () => {
   return (
     <header className="mb-7">
       <nav className="flex items-center justify-between flex-wrap gap-2">
-        {!session ? <GuestLinks /> : <LoggedInLinks />}
+        {!session ? (
+          <GuestLinks />
+        ) : (
+          <LoggedInLinks user={{ ...session.user }} />
+        )}
         {status === 'loading' && <p>Validation session...</p>}
       </nav>
     </header>
