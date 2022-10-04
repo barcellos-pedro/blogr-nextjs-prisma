@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { isActiveLink } from '../utils/active-link';
 import Image from 'next/image';
 import { Popover } from '@headlessui/react';
 import {
@@ -21,12 +19,10 @@ interface LoggedInLinksProps {
 }
 
 export const LoggedInLinks = ({ user }: LoggedInLinksProps) => {
-  const router = useRouter();
-
   return (
     <>
       <Link href="/">
-        <a className={`font-bold ${isActiveLink(router, '/')}`}>Feed</a>
+        <a className="font-bold">Feed</a>
       </Link>
 
       <Popover className="relative">
