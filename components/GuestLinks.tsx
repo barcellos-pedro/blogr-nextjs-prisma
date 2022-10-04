@@ -1,18 +1,18 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { isActiveLink } from '../utils/active-link';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
 export const GuestLinks = () => {
-  const router = useRouter();
-
   return (
     <>
       <Link href="/">
-        <a className={`font-bold ${isActiveLink(router, '/')}`}>Feed</a>
+        <a className="font-bold">Feed</a>
       </Link>
 
-      <Link href="/api/auth/signin">
-        <a className={`font-bold ${isActiveLink(router, '/signup')}`}>Log in</a>
+      <Link href="/login">
+        <a className="flex gap-2 items-center font-bold hover:underline underline-offset-4">
+          Log in
+          <ArrowRightOnRectangleIcon width={20} height={20} />
+        </a>
       </Link>
     </>
   );
