@@ -1,3 +1,5 @@
+import prisma from '../../../lib/prisma';
+
 const handler = async (request, response) => {
   const posts = await prisma.post.findMany({
     where: { published: true },

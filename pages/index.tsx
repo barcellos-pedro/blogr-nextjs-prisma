@@ -18,7 +18,7 @@ export default function Home({ posts }: HomeProps) {
     error,
     mutate,
     isValidating,
-  } = useSWR('/api/data', postsService.getPosts);
+  } = useSWR('/posts', postsService.getPosts);
 
   const updatePosts = async () => {
     // update feed data with swr function
