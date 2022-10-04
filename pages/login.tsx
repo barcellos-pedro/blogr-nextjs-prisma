@@ -2,10 +2,22 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Layout } from '../components/Layout';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function LoginPage() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (session) {
+    router.push('/');
+  }
+
   return (
-    <Layout home className="flex justify-center items-center h-screen bg-gradient-to-t from-[#1d2a5e] to-[#40bda7]">
+    <Layout
+      home
+      className="flex justify-center items-center h-screen bg-gradient-to-t from-[#1d2a5e] to-[#40bda7]"
+    >
       <Head>
         <title>Blog - Login</title>
       </Head>
