@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { postsService } from '../services/posts-service';
 import useSWR from 'swr';
 import { ArrowPathIcon, CloudArrowDownIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 type HomeProps = {
   posts: PostModel[];
@@ -67,6 +68,12 @@ export default function Home({ posts }: HomeProps) {
           <PostList items={feed} />
         )}
       </div>
+
+      <Link href="https://github.com/barcellos-pedro">
+        <a target="_blank" className="flex justify-center my-5">
+          Made with ❤️ by Pedro Reis
+        </a>
+      </Link>
     </Layout>
   );
 }
