@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { PostModel } from '../../utils/post-model';
 import { Layout } from '../../components/Layout';
 import { Post } from '../../components/Post';
-import prisma from '../../lib/prisma';
+import { postsService } from '../../services/posts-service';
 
 interface PostProps {
   post: PostModel;
@@ -25,16 +25,7 @@ export default function PostPage({ post }: PostProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: String(params?.id),
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
+  const post = await postsService.getPost(String(params?.id));
 
   return {
     props: { post },
