@@ -11,7 +11,17 @@ export const postsService = {
       const { data } = await api.get<PostModel[]>('/posts');
       return data;
     } catch (error) {
+      console.error(error);
       throw error;
+    }
+  },
+  async getPost(id: string) {
+    try {
+      const { data } = await api.get<PostModel>(`/posts/${id}`);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return error;
     }
   },
 };
