@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, { HTMLAttributes, ReactNode } from 'react';
 import { BackToHome } from './BackToHome';
+import { Header } from './Header';
 
 interface LayoutProps extends HTMLAttributes<HTMLDivElement> {
   home?: boolean;
@@ -13,7 +14,7 @@ export const Layout = ({
   ...divAttrs
 }: LayoutProps) => {
   return (
-    <main className="p-10 h-screen bg-home" {...divAttrs}>
+    <main className="p-10 bg-home" {...divAttrs}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="og:title" content="Next.js Blog" />
@@ -22,7 +23,11 @@ export const Layout = ({
           content="Fullstack app with Next.js, Prisma, and PostgreSQL"
         />
       </Head>
+
+      <Header />
+
       {children}
+
       {!home && (
         <footer>
           <BackToHome />
