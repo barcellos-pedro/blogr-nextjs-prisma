@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next';
 import { PostModel } from '../utils/post-model';
 import { Layout } from '../components/Layout';
-import { Header } from '../components/Header';
 import { PostList } from '../components/PostList';
 import Head from 'next/head';
 import { postsService } from '../services/posts-service';
@@ -31,8 +30,6 @@ export default function Home({ posts }: HomeProps) {
       <Head>
         <title>Home</title>
       </Head>
-
-      <Header />
 
       <div className="flex justify-between items-center">
         <h2 className="text-black font-bold text-2xl mb-7">Public Feed</h2>

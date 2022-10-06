@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { Layout } from '../components/Layout';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -13,10 +12,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Layout
-      home
-      className="flex justify-center items-center h-screen bg-gradient-to-t from-[#1d2a5e] to-[#40bda7]"
-    >
+    <main className="flex justify-center items-center h-screen bg-gradient-to-t from-[#1d2a5e] to-[#40bda7]">
       <Head>
         <title>Blog - Login</title>
       </Head>
@@ -43,6 +39,6 @@ export default function LoginPage() {
           </button>
         </div>
       </div>
-    </Layout>
+    </main>
   );
 }
