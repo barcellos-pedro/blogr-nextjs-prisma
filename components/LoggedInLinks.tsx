@@ -34,7 +34,7 @@ export const LoggedInLinks = ({ user }: LoggedInLinksProps) => {
             className="rounded-full"
           />
         </Popover.Button>
-        <Popover.Panel className="absolute mt-2 right-0 flex flex-col bg-white rounded p-4 shadow shadow-zinc-400 ">
+        <Popover.Panel className="absolute z-20 mt-2 right-0 flex flex-col bg-white rounded p-4 shadow shadow-zinc-400 ">
           <p className="text-center w-full font-semibold">{user.name}</p>
           <p className="text-zinc-500">{user.email}</p>
           <hr className="w-10/12 mx-auto my-4 border-black" />
