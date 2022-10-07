@@ -17,10 +17,10 @@ export const Layout = ({
     <main className="p-10 bg-home" {...divAttrs}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="og:title" content="Next.js Blog" />
+        <meta name="og:title" content="Stories" />
         <meta
           name="description"
-          content="Fullstack app with Next.js, Prisma, and PostgreSQL"
+          content="Register all the stories you care ❤️"
         />
       </Head>
 
