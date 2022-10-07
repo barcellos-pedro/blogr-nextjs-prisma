@@ -83,6 +83,13 @@ export default function CreatePage() {
         </div>
 
         <div className="flex items-center justify-between">
+          <button
+            type="submit"
+            className="bg-orange-500 text-white rounded px-8 h-12 hover:bg-orange-600"
+          >
+            Create
+          </button>
+
           {creationStatus === CREATING && (
             <p className="flex gap-2">
               <CloudArrowDownIcon
@@ -107,18 +114,6 @@ export default function CreatePage() {
               Error creating the post. Try again.
             </p>
           )}
-
-          <div className="flex items-center gap-5">
-            <button
-              type="submit"
-              className="bg-orange-500 text-white rounded px-8 h-12 hover:bg-orange-600"
-            >
-              Create
-            </button>
-            <button className="flex gap-2 h-11 items-center px-3 rounded hover:outline">
-              <TrashIcon width={25} height={25} /> Delete post
-            </button>
-          </div>
         </div>
       </form>
     </Layout>
