@@ -19,4 +19,8 @@ export default NextAuth({
   ],
   secret: process.env.SECRET,
   debug: process.env.NODE_ENV !== 'production' ? true : false,
+  pages: {
+    signIn: '/login',
+    newUser: '/welcome',
+  },
 });
