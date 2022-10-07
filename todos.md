@@ -1,4 +1,6 @@
-# Todos
+# Todos 📑
+
+- Usar assets: images e favico
 
 ## Página Feed
 
@@ -13,12 +15,12 @@
 
 - Página para editar post
 
-## Components
+## Componentes
 
 - Badge (Draft) ao lado do post que for do usuário logado no feed
   - /feed
 
-- Component mini menu (...) com botões igual menu de contexto windows 11 (ver foto exemplo no pc)
+- Component mini menu (...) com botões igual menu de contexto windows 11
   - Visualizar post /posts/{id}
   - Editar post /posts/{id}/edit
   - Excluir /posts/{id}/delete (abrir modal para confirmar)
