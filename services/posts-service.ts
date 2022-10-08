@@ -3,26 +3,29 @@ import { delay } from '../utils/delay';
 import { PostModel } from '../types/post-model';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:3000/api/posts',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
 
+const handleError = (message: string = 'Something went wrong. Try again') => {
+  throw new Error(message);
+};
+
 export const postsService = {
   async getPosts() {
     try {
-      const { data } = await api.get<PostModel[]>('/posts');
+      const { data } = await api.get<PostModel[]>('/');
       return data;
     } catch (error) {
-      console.error(error);
-      throw error;
+      handleError(error.response?.data);
     }
   },
   async getPost(id: string) {
     try {
-      const { data } = await api.get<PostModel>(`/posts/${id}`);
+      const { data } = await api.get<PostModel>(`/${id}`);
       return data;
     } catch (error) {
       console.error(error);
@@ -32,7 +35,7 @@ export const postsService = {
   async createPost(data) {
     try {
       await delay();
-      const { data: response } = await api.post<PostModel>('/posts/create', {
+      const { data: response } = await api.post<PostModel>('/create', {
         ...data,
       });
       return response;
