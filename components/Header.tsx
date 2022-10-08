@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { LoggedInLinks } from './LoggedInLinks';
 import { GuestLinks } from './GuestLinks';
-import { Spinner } from './Spinner';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 
 export const Header = () => {
   const { data: session, status } = useSession();
@@ -9,7 +9,7 @@ export const Header = () => {
   if (status === 'loading') {
     return (
       <header className="mb-7 flex justify-end">
-        <Spinner />
+        <UserCircleIcon width={40} height={40} className="animate-pulse" />
       </header>
     );
   }
