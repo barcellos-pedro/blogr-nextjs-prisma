@@ -1,18 +1,20 @@
 import { GetStaticProps } from 'next';
-import { PostModel } from '../utils/post-model';
+import { PostModel } from '../types/post-model';
 import { Layout } from '../components/Layout';
 import { PostList } from '../components/PostList';
 import Head from 'next/head';
 import { postsService } from '../services/posts-service';
 import useSWR from 'swr';
-import { ArrowPathIcon, CloudArrowDownIcon } from '@heroicons/react/24/outline';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { Spinner } from '../components/Spinner';
 
 type HomeProps = {
   posts: PostModel[];
+  lastFetched: string;
 };
 
-export default function Home({ posts }: HomeProps) {
+export default function Home({ posts, lastFetched }: HomeProps) {
   const {
     data: feed = posts,
     error,
@@ -24,6 +26,18 @@ export default function Home({ posts }: HomeProps) {
     // update feed data with swr function
     await mutate();
   };
+
+  const refreshIcon = isValidating ? (
+    <Spinner width={20} height={20} />
+  ) : (
+    <ArrowPathIcon width={20} height={20} />
+  );
+
+  const postsOrMessage = feed?.length ? (
+    <PostList items={feed} />
+  ) : (
+    <p>There are no posts yet</p>
+  );
 
   return (
     <Layout home>
@@ -37,33 +51,16 @@ export default function Home({ posts }: HomeProps) {
           onClick={updatePosts}
           className="flex gap-2 bg-white p-2 rounded border border-transparent hover:border-blue-400 duration-300"
         >
-          {isValidating ? (
-            <CloudArrowDownIcon
-              className="animate-pulse"
-              width={20}
-              height={20}
-            />
-          ) : (
-            <>
-              Refresh
-              <ArrowPathIcon width={20} height={20} />
-            </>
-          )}
+          {refreshIcon}
         </button>
       </div>
 
       <div className="bg-white rounded p-8">
         {error && (
-          <p className="text-center text-xl">
-            Error when fetching latest posts. Try again.
-          </p>
+          <p className="text-zinc-500">Showing posts from {lastFetched}</p>
         )}
 
-        {!feed?.length ? (
-          <p>There are no posts yet</p>
-        ) : (
-          <PostList items={feed} />
-        )}
+        {postsOrMessage}
       </div>
 
       <Link href="https://github.com/barcellos-pedro">
@@ -77,9 +74,10 @@ export default function Home({ posts }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await postsService.getPosts();
+  const lastFetched = new Date().toLocaleString();
 
   return {
-    props: { posts },
+    props: { posts, lastFetched },
     revalidate: 300,
   };
 };
