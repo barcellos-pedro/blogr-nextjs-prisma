@@ -2,17 +2,17 @@ import { PostModel } from '../types/post-model';
 import { Post } from './Post';
 
 interface PostListProps {
-  items: PostModel[];
+  data: PostModel[];
 }
 
-export const PostList = ({ items }: PostListProps) => {
+export const PostList = ({ data }: PostListProps) => {
   return (
-    <>
-      {items.map((item) => (
-        <section key={item.id} className="mt-8">
+    <div className="flex flex-col gap-6">
+      {data.map((item) => (
+        <section key={item.id}>
           <Post post={item} />
         </section>
       ))}
-    </>
+    </div>
   );
 };
