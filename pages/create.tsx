@@ -6,7 +6,7 @@ import {
   HandThumbUpIcon,
 } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
-import { Unauthorized } from '../components/Unauthorized';
+import { Error } from '../components/Error';
 import { FormEvent, useState } from 'react';
 import { postsService } from '../services/posts-service';
 import { showToast } from '../utils/show-toast';
@@ -53,7 +53,14 @@ export default function CreatePage() {
   };
 
   if (status === 'unauthenticated') {
-    return <Unauthorized />;
+    return (
+      <Error
+        title="Access denied"
+        description="You need to be logged in to view this page"
+        buttonText="Login"
+        navigateTo="/login"
+      />
+    );
   }
 
   return (
