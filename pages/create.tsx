@@ -4,44 +4,44 @@ import {
   CloudArrowDownIcon,
   ExclamationCircleIcon,
   HandThumbUpIcon,
-  TrashIcon,
 } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { Unauthorized } from '../components/Unauthorized';
 import { FormEvent, useState } from 'react';
 import { postsService } from '../services/posts-service';
-
-enum CreationStatus {
-  NOT_STARTED,
-  CREATING,
-  SUCCESS,
-  ERROR,
-}
+import { showToast } from '../utils/show-toast';
+import { useRouter } from 'next/router';
+import { getFormData } from '../utils/form-data';
+import { CreationStatus } from '../types/creation-status';
 
 export default function CreatePage() {
   const { NOT_STARTED, CREATING, SUCCESS, ERROR } = CreationStatus;
   const { status } = useSession();
+  const router = useRouter();
 
   const [creationStatus, setCreationStatus] =
     useState<CreationStatus>(NOT_STARTED);
-
-  const getFormData = (event: FormEvent) => {
-    const formData = new FormData(event.target as HTMLFormElement);
-    return Object.fromEntries(formData);
-  };
 
   const createEvent = async (event: FormEvent) => {
     setCreationStatus(CREATING);
     event.preventDefault();
 
+    const navigate = (queryValue: string) =>
+      router.push({
+        pathname: '/posts/[id]',
+        query: { id: queryValue },
+      });
+
     try {
       const data = getFormData(event);
       const response = await postsService.createPost(data);
-      console.log(response);
       setCreationStatus(SUCCESS);
+      showToast('Post created!', 'success');
+      navigate(response.id);
     } catch (error) {
       console.error(error);
       setCreationStatus(ERROR);
+      showToast('Error creating post.', 'error');
     } finally {
       setTimeout(() => {
         setCreationStatus(NOT_STARTED);
