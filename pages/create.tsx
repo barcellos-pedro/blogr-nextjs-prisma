@@ -14,10 +14,11 @@ import { useRouter } from 'next/router';
 import { getFormData } from '../utils/form-data';
 import { CreationStatus } from '../types/creation-status';
 import { ToggleButton } from '../components/ToggleButton';
+import { Spinner } from '../components/Spinner';
 
 export default function CreatePage() {
   const { NOT_STARTED, CREATING, SUCCESS, ERROR } = CreationStatus;
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   const [publish, setPublish] = useState(false);
@@ -37,20 +38,23 @@ export default function CreatePage() {
 
     try {
       const data = getFormData(event);
-      const response = await postsService.createPost(data);
+      const newPost = await postsService.createPost(data);
       setCreationStatus(SUCCESS);
       showToast('Post created!', 'success');
-      navigate(response.id);
+      navigate(newPost.id);
     } catch (error) {
-      console.error(error);
       setCreationStatus(ERROR);
-      showToast('Error creating post.', 'error');
+      showToast(error.message, 'error');
     } finally {
       setTimeout(() => {
         setCreationStatus(NOT_STARTED);
       }, 3000);
     }
   };
+
+  if (status === 'loading') {
+    return <Spinner fullscreen width={40} height={40} />;
+  }
 
   if (!session) {
     return (
