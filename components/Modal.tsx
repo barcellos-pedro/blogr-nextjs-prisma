@@ -30,9 +30,11 @@ export const Modal = ({
         <Dialog.Title className="text-center font-semibold text-zinc-600">
           {title}
         </Dialog.Title>
+
         <Dialog.Description className="text-center">
           {description}
         </Dialog.Description>
+
         <div className="flex justify-center gap-5">
           {confirmButtonText && (
             <button
