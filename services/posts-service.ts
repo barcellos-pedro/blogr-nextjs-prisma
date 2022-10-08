@@ -1,10 +1,13 @@
 import axios from 'axios';
-import { PostModel } from '../utils/post-model';
-
-const delay = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
+import { delay } from '../utils/delay';
+import { PostModel } from '../types/post-model';
 
 const api = axios.create({
   baseURL: 'http://localhost:3000/api',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
 });
 
 export const postsService = {
@@ -23,13 +26,15 @@ export const postsService = {
       return data;
     } catch (error) {
       console.error(error);
-      return error;
+      throw error;
     }
   },
   async createPost(data) {
     try {
       await delay();
-      const { data: response } = await api.post('/posts/create', { ...data });
+      const { data: response } = await api.post<PostModel>('/posts/create', {
+        ...data,
+      });
       return response;
     } catch (error) {
       console.error(error);
