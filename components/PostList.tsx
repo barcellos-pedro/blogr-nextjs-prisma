@@ -1,4 +1,4 @@
-import { PostModel } from '../utils/post-model';
+import { PostModel } from '../types/post-model';
 import { Post } from './Post';
 
 interface PostListProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
-import { PostModel } from '../utils/post-model';
+import { PostModel } from '../types/post-model';
 import { useSession } from 'next-auth/react';
 import { PostMenu } from './PostMenu';
 

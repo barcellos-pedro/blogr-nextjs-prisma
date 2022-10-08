@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-import { PostModel } from '../../utils/post-model';
+import { PostModel } from '../../types/post-model';
 import { Layout } from '../../components/Layout';
 import { Post } from '../../components/Post';
 import { postsService } from '../../services/posts-service';
