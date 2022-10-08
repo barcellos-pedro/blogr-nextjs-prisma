@@ -7,6 +7,7 @@ const handler = async (request, response) => {
       author: {
         select: {
           name: true,
+          email: true,
         },
       },
     },
