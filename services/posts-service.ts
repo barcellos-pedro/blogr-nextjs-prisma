@@ -28,8 +28,7 @@ export const postsService = {
       const { data } = await api.get<PostModel>(`/${id}`);
       return data;
     } catch (error) {
-      console.error(error);
-      throw error;
+      handleError(error.response?.data);
     }
   },
   async createPost(data) {
