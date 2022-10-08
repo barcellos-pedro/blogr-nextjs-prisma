@@ -1,4 +1,4 @@
-import { PostModel } from './post-model';
+import { PostModel } from '../types/post-model';
 
 export const POSTS: PostModel[] = [
   {
