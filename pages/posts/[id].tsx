@@ -7,7 +7,6 @@ import { Post } from '../../components/Post';
 import { postsService } from '../../services/posts-service';
 import { Error } from '../../components/Error';
 import { useSession } from 'next-auth/react';
-import { Spinner } from '../../components/Spinner';
 
 interface PostProps {
   post: PostModel;
