@@ -24,7 +24,7 @@ export const PostMenu = ({ id }: PostMenuProps) => {
           <EllipsisHorizontalIcon width={30} height={30} />
         </Popover.Button>
 
-        <Popover.Panel className="absolute right-0 z-10 divide-y flex flex-col gap-3 bg-zinc-200 p-3 rounded border-2 border-black/5 shadow">
+        <Popover.Panel className="absolute right-0 z-10 divide-y flex flex-col gap-3 bg-zinc-100 p-3 rounded border-2 border-black/50 shadow">
           <Link href={`posts/${id}`}>
             <a className="flex gap-2 items-center justify-between font-semibold p-2 rounded outline-none hover:bg-amber-300/30 focus:bg-amber-300/30 duration-300">
               Open
