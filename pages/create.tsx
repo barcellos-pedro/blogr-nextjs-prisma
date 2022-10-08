@@ -17,7 +17,7 @@ import { ToggleButton } from '../components/ToggleButton';
 
 export default function CreatePage() {
   const { NOT_STARTED, CREATING, SUCCESS, ERROR } = CreationStatus;
-  const { status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const [publish, setPublish] = useState(false);
@@ -52,7 +52,7 @@ export default function CreatePage() {
     }
   };
 
-  if (status === 'unauthenticated') {
+  if (!session) {
     return (
       <Error
         title="Access denied"

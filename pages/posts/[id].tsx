@@ -15,17 +15,9 @@ interface PostProps {
 }
 
 export default function PostPage({ post, error }: PostProps) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const isUserOwnPost = () => session?.user?.email == post?.author?.email;
   const isPublished = () => post?.published;
-
-  if (status === 'loading') {
-    return (
-      <main className="flex justify-center items-center h-screen">
-        <Spinner height={50} width={50} />
-      </main>
-    );
-  }
 
   if (error || !post) {
     return (
