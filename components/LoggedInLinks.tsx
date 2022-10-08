@@ -25,6 +25,7 @@ export const LoggedInLinks = ({ user }: LoggedInLinksProps) => {
         <a className="font-bold">Feed</a>
       </Link>
 
+      {/* Logged in User Menu */}
       <Popover className="relative">
         <Popover.Button className="ring ring-transparent rounded-full outline-none focus:ring-zinc-400 hover:ring-zinc-400 duration-300">
           <Image
