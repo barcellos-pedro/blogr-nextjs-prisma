@@ -34,13 +34,12 @@ export const postsService = {
   async createPost(data) {
     try {
       await delay();
-      const { data: response } = await api.post<PostModel>('/create', {
+      const { data: response } = await api.post<PostModel>('/created', {
         ...data,
       });
       return response;
     } catch (error) {
-      console.error(error);
-      throw error;
+      handleError(error.response?.data);
     }
   },
 };
