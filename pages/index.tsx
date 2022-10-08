@@ -11,7 +11,7 @@ import { Spinner } from '../components/Spinner';
 
 type HomeProps = {
   posts: PostModel[];
-  lastFetched: string;
+  lastFetched?: string;
 };
 
 export default function Home({ posts, lastFetched }: HomeProps) {
@@ -33,12 +33,6 @@ export default function Home({ posts, lastFetched }: HomeProps) {
     <ArrowPathIcon width={20} height={20} />
   );
 
-  const postsOrMessage = feed?.length ? (
-    <PostList items={feed} />
-  ) : (
-    <p>There are no posts yet</p>
-  );
-
   return (
     <Layout home>
       <Head>
@@ -56,11 +50,15 @@ export default function Home({ posts, lastFetched }: HomeProps) {
       </div>
 
       <div className="bg-white rounded p-8">
-        {error && (
+        {lastFetched && (
           <p className="text-zinc-500">Showing posts from {lastFetched}</p>
         )}
 
-        {postsOrMessage}
+        {feed?.length ? (
+          <PostList items={feed} />
+        ) : (
+          <p>There are no posts yet</p>
+        )}
       </div>
 
       <Link href="https://github.com/barcellos-pedro">
@@ -73,11 +71,19 @@ export default function Home({ posts, lastFetched }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await postsService.getPosts();
   const lastFetched = new Date().toLocaleString();
 
-  return {
-    props: { posts, lastFetched },
-    revalidate: 300,
-  };
+  try {
+    const posts = await postsService.getPosts();
+
+    return {
+      props: { posts, lastFetched },
+      revalidate: 300,
+    };
+  } catch (error) {
+    return {
+      props: { posts: [] },
+      revalidate: 300,
+    };
+  }
 };
