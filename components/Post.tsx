@@ -18,7 +18,7 @@ export const Post = ({ post }: PostProps) => {
     author: { name },
   } = post;
   const authorName = name || 'Unknown author';
-  const isUserPost = () => session?.user?.name == post.author?.name;
+  const isUserPost = () => session?.user?.email == post.author?.email;
 
   return (
     <>
