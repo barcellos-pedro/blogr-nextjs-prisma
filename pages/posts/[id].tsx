@@ -7,6 +7,7 @@ import { Post } from '../../components/Post';
 import { postsService } from '../../services/posts-service';
 import { Error } from '../../components/Error';
 import { useSession } from 'next-auth/react';
+import { Spinner } from '../../components/Spinner';
 
 interface PostProps {
   post: PostModel;
@@ -14,9 +15,13 @@ interface PostProps {
 }
 
 export default function PostPage({ post, error }: PostProps) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const isUserOwnPost = () => session?.user?.email == post?.author?.email;
   const isPublished = () => post?.published;
+
+  if (status === 'loading') {
+    return <Spinner fullscreen width={40} height={40} />;
+  }
 
   if (error || !post) {
     return (
