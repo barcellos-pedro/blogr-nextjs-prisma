@@ -5,12 +5,25 @@ import { PostModel } from '../../types/post-model';
 import { Layout } from '../../components/Layout';
 import { Post } from '../../components/Post';
 import { postsService } from '../../services/posts-service';
+import { Error } from '../../components/Error';
 
 interface PostProps {
   post: PostModel;
+  error?: string;
 }
 
-export default function PostPage({ post }: PostProps) {
+export default function PostPage({ post, error }: PostProps) {
+  if (error || !post) {
+    return (
+      <Error
+        title="Post not found"
+        description={error}
+        buttonText="Feed"
+        navigateTo="/"
+      />
+    );
+  }
+
   return (
     <Layout>
       <Head>
@@ -25,9 +38,16 @@ export default function PostPage({ post }: PostProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await postsService.getPost(String(params?.id));
+  try {
+    const post = await postsService.getPost(String(params?.id));
 
-  return {
-    props: { post },
-  };
+    return {
+      props: { post },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: { post: null, error: error.message },
+    };
+  }
 };
