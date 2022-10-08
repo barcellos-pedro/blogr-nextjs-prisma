@@ -1,23 +1,23 @@
 import { GetStaticProps } from 'next';
 import { PostModel } from '../types/post-model';
 import { Layout } from '../components/Layout';
-import { PostList } from '../components/PostList';
 import Head from 'next/head';
 import { postsService } from '../services/posts-service';
 import useSWR from 'swr';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Spinner } from '../components/Spinner';
+import { Feed } from '../components/Feed';
 
 type HomeProps = {
   posts: PostModel[];
-  lastFetched?: string;
+  buildFetchError?: string;
 };
 
-export default function Home({ posts, lastFetched }: HomeProps) {
+export default function Home({ posts, buildFetchError }: HomeProps) {
   const {
     data: feed = posts,
-    error,
+    error: swrError,
     mutate,
     isValidating,
   } = useSWR('/posts', postsService.getPosts);
@@ -50,15 +50,7 @@ export default function Home({ posts, lastFetched }: HomeProps) {
       </div>
 
       <div className="bg-white rounded p-8">
-        {lastFetched && (
-          <p className="text-zinc-500">Showing posts from {lastFetched}</p>
-        )}
-
-        {feed?.length ? (
-          <PostList items={feed} />
-        ) : (
-          <p>There are no posts yet</p>
-        )}
+        <Feed error={buildFetchError} data={feed} />
       </div>
 
       <Link href="https://github.com/barcellos-pedro">
@@ -71,18 +63,16 @@ export default function Home({ posts, lastFetched }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const lastFetched = new Date().toLocaleString();
-
   try {
     const posts = await postsService.getPosts();
-
     return {
-      props: { posts, lastFetched },
+      props: { posts },
       revalidate: 300,
     };
   } catch (error) {
+    console.error(error);
     return {
-      props: { posts: [] },
+      props: { posts: [], buildFetchError: error.message },
       revalidate: 300,
     };
   }
