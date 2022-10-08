@@ -13,24 +13,27 @@ import { showToast } from '../utils/show-toast';
 import { useRouter } from 'next/router';
 import { getFormData } from '../utils/form-data';
 import { CreationStatus } from '../types/creation-status';
+import { ToggleButton } from '../components/ToggleButton';
 
 export default function CreatePage() {
   const { NOT_STARTED, CREATING, SUCCESS, ERROR } = CreationStatus;
   const { status } = useSession();
   const router = useRouter();
 
+  const [publish, setPublish] = useState(false);
+
   const [creationStatus, setCreationStatus] =
     useState<CreationStatus>(NOT_STARTED);
+
+  const navigate = (queryValue: string) =>
+    router.push({
+      pathname: '/posts/[id]',
+      query: { id: queryValue },
+    });
 
   const createEvent = async (event: FormEvent) => {
     setCreationStatus(CREATING);
     event.preventDefault();
-
-    const navigate = (queryValue: string) =>
-      router.push({
-        pathname: '/posts/[id]',
-        query: { id: queryValue },
-      });
 
     try {
       const data = getFormData(event);
@@ -59,7 +62,7 @@ export default function CreatePage() {
         <title>Blog - Create</title>
       </Head>
 
-      <h1 className="text-2xl font-bold">New draft</h1>
+      <h1 className="text-2xl font-bold">New Post</h1>
 
       <form className="my-5 flex flex-col gap-5" onSubmit={createEvent}>
         <div className="flex flex-col gap-1">
@@ -80,6 +83,15 @@ export default function CreatePage() {
             rows={10}
             className="p-3 rounded"
           ></textarea>
+        </div>
+
+        <div className="flex items-center gap-2 justify-end">
+          <ToggleButton
+            id="publish"
+            label="Publish ?"
+            checked={publish}
+            onChange={() => setPublish(!publish)}
+          />
         </div>
 
         <div className="flex items-center justify-between">
