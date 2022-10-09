@@ -7,6 +7,10 @@ interface FeedProps {
 }
 
 export const Feed = ({ error, data }: FeedProps) => {
+  if (!error && !data.length) {
+    return <p>There are no data yet</p>;
+  }
+
   if (error && !data.length) {
     return (
       <>
