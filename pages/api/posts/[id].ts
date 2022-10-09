@@ -1,21 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { postsController } from '../../../controllers/posts';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   try {
-    const post = await prisma.post.findUniqueOrThrow({
-      where: {
-        id: String(request.query?.id),
-      },
-      include: {
-        author: {
-          select: { name: true, email: true },
-        },
-      },
-    });
-
-    return response.status(200).json(post);
+    const data = await postsController(request);
+    return response.status(200).json(data);
   } catch (error) {
-    return response.status(500).send('Error fething a post. Try again');
+    return response.status(500).send(error.message);
   }
 };
 
