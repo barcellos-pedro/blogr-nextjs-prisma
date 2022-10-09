@@ -6,16 +6,40 @@ import {
 } from '@heroicons/react/24/outline';
 import { Popover } from '@headlessui/react';
 import Link from 'next/link';
-import { useState } from 'react';
 import { Modal } from './Modal';
+import { postsService } from '../services/posts-service';
+import { showToast } from '../utils/show-toast';
+import { useRouter } from 'next/router';
+import { useModal } from '../hooks/use-modal';
 
 interface PostMenuProps {
   id: string;
 }
 
 export const PostMenu = ({ id }: PostMenuProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const deletePost = () => {};
+  // Modal fields
+  const intialTitle = 'Delete Post';
+  const intialText = 'Are you sure you want to delete?';
+  const { values, actions } = useModal(intialTitle, intialText);
+  const { title, description, isPending, isOpen } = values;
+  const { openModal, closeModal, setDescription, setIsPending } = actions;
+
+  const router = useRouter();
+
+  const deletePost = async () => {
+    try {
+      setIsPending(true);
+      await postsService.deletePost(id);
+      showToast('Post deleted', 'success');
+      router.push(router.pathname);
+    } catch (error) {
+      showToast(error.message, 'error');
+    } finally {
+      setIsPending(false);
+      setDescription(intialText);
+      closeModal();
+    }
+  };
 
   return (
     <>
@@ -39,7 +63,7 @@ export const PostMenu = ({ id }: PostMenuProps) => {
           </Link>
 
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={openModal}
             className="flex gap-2 items-center justify-between font-semibold p-2 rounded outline-none hover:bg-amber-300/30 focus:bg-amber-300/30 duration-300"
           >
             Delete
@@ -51,11 +75,12 @@ export const PostMenu = ({ id }: PostMenuProps) => {
       {/* Modal for delete option */}
       <Modal
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onConfirm={() => console.log('deleting post...')}
-        onCancel={() => setIsOpen(false)}
-        title="Delete Post"
-        description="Are you sure you want to delete?"
+        onClose={openModal}
+        onCancel={closeModal}
+        onConfirm={deletePost}
+        pending={isPending}
+        title={title}
+        description={description}
         confirmButtonText="Yes"
         cancelButtonText="No"
       />
