@@ -9,9 +9,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     const drafts = await prisma.post.findMany({
       where: {
         published: false,
-        AND: {
-          author: { email: { equals: session?.user?.email } },
-        },
+        author: { email: session?.user?.email },
       },
       include: {
         author: {
