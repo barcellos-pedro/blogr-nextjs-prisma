@@ -43,7 +43,7 @@ export const LoggedInLinks = ({ user }: LoggedInLinksProps) => {
             <Link href="/drafts">
               <a className="outline-none p-2 flex gap-2 hover:bg-sky-200 rounded duration-300 focus:bg-sky-200">
                 <PencilSquareIcon width={20} height={20} />
-                My drafts
+                Drafts
               </a>
             </Link>
             <Link href="/create">
