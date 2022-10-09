@@ -23,7 +23,7 @@ export default function PostPage({ post, error }: PostProps) {
     return <Spinner fullscreen width={40} height={40} />;
   }
 
-  if (error || !post) {
+  if (error || !post.id) {
     return (
       <Error
         title="Post not found"
@@ -61,7 +61,6 @@ export default function PostPage({ post, error }: PostProps) {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     const post = await postsService.getPost(String(params?.id));
-
     return {
       props: { post },
     };
