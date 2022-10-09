@@ -34,10 +34,18 @@ export const postsService = {
   async createPost(data) {
     try {
       await delay();
-      const { data: response } = await api.post<PostModel>('/created', {
+      const { data: response } = await api.post<PostModel>('/create', {
         ...data,
       });
       return response;
+    } catch (error) {
+      handleError(error.response?.data);
+    }
+  },
+  async getDrafts() {
+    try {
+      const { data } = await api.get<PostModel[]>('/drafts');
+      return data;
     } catch (error) {
       handleError(error.response?.data);
     }
