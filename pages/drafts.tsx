@@ -32,10 +32,10 @@ export default function Drafts({ drafts, error }: DraftsProps) {
     );
   }
 
-  if (error || !drafts?.length) {
+  if (error) {
     return (
       <Error
-        title="Drafts not found"
+        title="Error loading drafts"
         description={error}
         buttonText="Home"
         navigateTo="/"
@@ -58,11 +58,11 @@ export default function Drafts({ drafts, error }: DraftsProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const data = await postsService.getDrafts();
+    const drafts = await postsService.getDrafts();
     return {
-      props: { drafts: data },
+      props: { drafts },
     };
   } catch (error) {
     return {
