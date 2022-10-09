@@ -50,4 +50,12 @@ export const postsService = {
       handleError(error.response?.data);
     }
   },
+  async deletePost(id: string) {
+    try {
+      const { data } = await api.delete<PostModel>(`${id}`);
+      return data;
+    } catch (error) {
+      handleError(error.response?.data);
+    }
+  },
 };
