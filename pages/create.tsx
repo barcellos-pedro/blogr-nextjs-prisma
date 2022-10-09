@@ -26,12 +26,6 @@ export default function CreatePage() {
   const [creationStatus, setCreationStatus] =
     useState<CreationStatus>(NOT_STARTED);
 
-  const navigate = (queryValue: string) =>
-    router.push({
-      pathname: '/posts/[id]',
-      query: { id: queryValue },
-    });
-
   const createEvent = async (event: FormEvent) => {
     setCreationStatus(CREATING);
     event.preventDefault();
@@ -41,7 +35,7 @@ export default function CreatePage() {
       const newPost = await postsService.createPost(data);
       setCreationStatus(SUCCESS);
       showToast('Post created!', 'success');
-      navigate(newPost.id);
+      newPost.published ? router.push('/') : router.push('/drafts');
     } catch (error) {
       setCreationStatus(ERROR);
       showToast(error.message, 'error');
