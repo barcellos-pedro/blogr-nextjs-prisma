@@ -11,7 +11,7 @@ export const Feed = ({ error, data }: FeedProps) => {
     return (
       <>
         <p className="text-zinc-500 mb-3">{error}</p>
-        <p>There are no posts yet</p>
+        <p>There are no data yet</p>
       </>
     );
   }
