@@ -70,12 +70,12 @@ export default function CreatePage() {
   return (
     <Layout>
       <Head>
-        <title>Blog - Create</title>
+        <title>Stories - Create</title>
       </Head>
 
       <h1 className="text-2xl font-bold">New Post</h1>
 
-      <form className="my-5 flex flex-col gap-5" onSubmit={createEvent}>
+      <form className="mt-5 mb-12 flex flex-col gap-5" onSubmit={createEvent}>
         <div className="flex flex-col gap-1">
           <label htmlFor="title" className="font-semibold">
             Title
@@ -96,7 +96,7 @@ export default function CreatePage() {
           ></textarea>
         </div>
 
-        <div className="flex items-center gap-2 justify-end">
+        <div className="flex items-center gap-2 mb-5">
           <ToggleButton
             id="publish"
             label="Publish ?"
