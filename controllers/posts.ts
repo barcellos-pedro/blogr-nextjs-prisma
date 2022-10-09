@@ -47,7 +47,10 @@ export const updateById = async (request: NextApiRequest) => {
 
 export const deleteById = async (request: NextApiRequest) => {
   try {
-    // TODO: Implement
+    const deletedPost = await prisma.post.delete({
+      where: { id: request.query?.id as string },
+    });
+    return deletedPost;
   } catch (error) {
     throw new Error('Error deleteing a post. Try again');
   }
