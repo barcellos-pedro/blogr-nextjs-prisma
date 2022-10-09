@@ -5,6 +5,11 @@ import prisma from '../../../lib/prisma';
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   try {
     const { title, content, publish } = request.body;
+
+    if (!title) {
+      return response.status(400).send('The post needs a title');
+    }
+
     const published = publish === 'on' ? true : false;
     const session = await getSession({ req: request });
 
