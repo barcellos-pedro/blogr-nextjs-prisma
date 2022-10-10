@@ -52,8 +52,19 @@ export const postsService = {
   },
   async deletePost(id: string) {
     try {
-      const { data } = await api.delete<PostModel>(`${id}`);
+      const { data } = await api.delete<PostModel>(`/${id}`);
       return data;
+    } catch (error) {
+      handleError(error.response?.data);
+    }
+  },
+  async updatePost(id: string, data) {
+    try {
+      const { data: response } = await api.patch<PostModel>(`/${id}`, {
+        ...data,
+      });
+
+      return response;
     } catch (error) {
       handleError(error.response?.data);
     }
