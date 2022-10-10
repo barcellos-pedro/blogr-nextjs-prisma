@@ -1,4 +1,5 @@
 import { NextApiRequest } from 'next';
+import prisma from '../lib/prisma';
 
 export const postsController = async (request: NextApiRequest) => {
   try {
