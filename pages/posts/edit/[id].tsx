@@ -38,6 +38,16 @@ export default function EditPage({ post, error }: EditPageProps) {
     }
   };
 
+  const deletePost = async () => {
+    try {
+      await postsService.deletePost(post.id);
+      showToast('Post deleted 🗑️', 'success');
+      router.push('/');
+    } catch (error) {
+      showToast(error.message, 'error');
+    }
+  };
+
   if (status === 'loading') {
     return <Spinner fullscreen width={40} height={40} />;
   }
@@ -87,6 +97,7 @@ export default function EditPage({ post, error }: EditPageProps) {
         onSubmit={updatePost}
         isPublished={isPublished}
         onPublishedChange={() => setIsPublished(!isPublished)}
+        onDelete={deletePost}
         data={{ ...post }}
       />
     </Layout>
