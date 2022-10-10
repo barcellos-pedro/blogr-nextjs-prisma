@@ -5,7 +5,7 @@ export const postsController = async (request: NextApiRequest) => {
     switch (request.method) {
       case 'GET':
         return await getById(request);
-      case 'PUT':
+      case 'PATCH':
         return await updateById(request);
       case 'DELETE':
         return await deleteById(request);
@@ -39,7 +39,24 @@ export const getById = async (request: NextApiRequest) => {
 
 export const updateById = async (request: NextApiRequest) => {
   try {
-    // TODO: Implement
+    const { title, content, publish } = request.body;
+
+    if (!title) {
+      throw new Error('The post needs a title');
+    }
+
+    const published = publish === 'on';
+
+    const updatedPost = await prisma.post.update({
+      where: { id: request.query.id as string },
+      data: {
+        title,
+        content,
+        published,
+      },
+    });
+
+    return updatedPost;
   } catch (error) {
     throw new Error('Error updatind a post. Try again');
   }
