@@ -18,11 +18,9 @@ interface PostMenuProps {
 
 export const PostMenu = ({ id }: PostMenuProps) => {
   // Modal fields
-  const intialTitle = 'Delete Post';
-  const intialText = 'Are you sure you want to delete?';
-  const { values, actions } = useModal(intialTitle, intialText);
-  const { title, description, isPending, isOpen } = values;
-  const { openModal, closeModal, setDescription, setIsPending } = actions;
+  const { values, actions } = useModal();
+  const { isPending, isOpen } = values;
+  const { openModal, closeModal, setIsPending } = actions;
 
   const router = useRouter();
 
@@ -36,7 +34,6 @@ export const PostMenu = ({ id }: PostMenuProps) => {
       showToast(error.message, 'error');
     } finally {
       setIsPending(false);
-      setDescription(intialText);
       closeModal();
     }
   };
@@ -75,12 +72,12 @@ export const PostMenu = ({ id }: PostMenuProps) => {
       {/* Modal for delete option */}
       <Modal
         isOpen={isOpen}
-        onClose={openModal}
+        onClose={closeModal}
         onCancel={closeModal}
         onConfirm={deletePost}
         pending={isPending}
-        title={title}
-        description={description}
+        title="Delete Post"
+        description="Are you sure you want to delete?"
         confirmButtonText="Yes"
         cancelButtonText="No"
       />
