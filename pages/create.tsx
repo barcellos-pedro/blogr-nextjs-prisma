@@ -16,7 +16,7 @@ export default function CreatePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Form fields and
+  // Form field
   const [isPublished, setIsPublished] = useState(false);
 
   // Status for visual feedback (icons)

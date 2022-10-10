@@ -23,7 +23,7 @@ export default function EditPage({ post, error }: EditPageProps) {
   const isUserOwnPost = () => session?.user?.email == post?.author?.email;
 
   // Form field
-  const [isPublished, setIsPublished] = useState(post.published);
+  const [isPublished, setIsPublished] = useState(post?.published);
 
   const updatePost = async (event: FormEvent) => {
     event.preventDefault();
