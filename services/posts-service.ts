@@ -2,8 +2,13 @@ import axios from 'axios';
 import { delay } from '../utils/delay';
 import { PostModel } from '../types/post-model';
 
+const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://barcellos-pedro-blogr-nextjs-prisma.vercel.app/api/posts'
+    : 'http://localhost:3000/api/posts';
+
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api/posts',
+  baseURL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
