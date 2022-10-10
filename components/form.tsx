@@ -12,6 +12,7 @@ interface FormProps {
   isPublished: boolean;
   onPublishedChange: () => void;
   submittingStatus?: CreationStatus;
+  onDelete?: () => void;
   data?: { title: string; content: string; published: boolean };
 }
 
@@ -20,6 +21,7 @@ export const Form = ({
   isPublished,
   onPublishedChange,
   submittingStatus,
+  onDelete,
   data,
 }: FormProps) => {
   return (
@@ -55,7 +57,7 @@ export const Form = ({
         <ToggleButton
           id="publish"
           label="Publish ?"
-          checked={data?.published || isPublished}
+          checked={isPublished}
           onChange={onPublishedChange}
         />
       </div>
@@ -70,7 +72,8 @@ export const Form = ({
           </button>
           {data?.title && (
             <button
-              type="submit"
+              type="button"
+              onClick={onDelete}
               className="bg-red-500 text-white rounded px-8 h-12 hover:bg-red-600"
             >
               Delete
