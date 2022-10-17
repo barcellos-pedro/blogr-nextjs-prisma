@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { getFormData } from '../utils/form-data';
 import { CreationStatus } from '../types/creation-status';
 import { Spinner } from '../components/Spinner';
-import { Form } from '../components/form';
+import { Form } from '../components/Form';
 
 export default function CreatePage() {
   const { NOT_STARTED, CREATING, SUCCESS, ERROR } = CreationStatus;

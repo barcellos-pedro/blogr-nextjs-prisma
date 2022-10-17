@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { Error } from '../../../components/Error';
-import { Form } from '../../../components/form';
+import { Form } from '../../../components/Form';
 import { Layout } from '../../../components/Layout';
 import { Spinner } from '../../../components/Spinner';
 import { postsService } from '../../../services/posts-service';
