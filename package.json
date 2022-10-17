@@ -1,14 +1,20 @@
 {
   "name": "hello-next",
   "version": "1.0.0",
-  "description": "",
+  "description": "Enhanced project based on Vercel guide How to Build a Fullstack App with Next.js, Prisma, and PostgreSQL",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "nextjs",
+    "tailwind",
+    "prisma",
+    "vercel"
+  ],
+  "author": "Pedro Reis (barcellos-pedro)",
   "license": "MIT",
   "dependencies": {
     "@headlessui/react": "^1.7.3",
