@@ -15,10 +15,11 @@ export const Post = ({ post }: PostProps) => {
     id,
     title,
     content,
-    author: { name },
+    author: { name, email },
   } = post;
-  const authorName = name || 'Unknown author';
-  const isUserPost = () => session?.user?.email == post.author?.email;
+
+  const username = email.substring(0, email.indexOf('@'));
+  const isUserPost = () => session?.user?.email == email;
 
   return (
     <>
@@ -30,7 +31,11 @@ export const Post = ({ post }: PostProps) => {
         </Link>
         {!!isUserPost() && <PostMenu id={id} />}
       </div>
-      <small className="text-zinc-500">By {authorName}</small>
+      <Link href={`/posts/users/${username}`}>
+        <a className="text-sm font-semibold text-zinc-500 hover:underline">
+          {name || 'Unknown author'}
+        </a>
+      </Link>
       <ReactMarkdown children={content} />
     </>
   );
