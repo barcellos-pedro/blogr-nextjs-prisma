@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { delay } from '../utils/delay';
 import { PostModel } from '../types/post-model';
+import { UserPostsModel } from '../types/user-posts-model';
 
 const baseURL =
   process.env.NODE_ENV === 'production'
@@ -20,6 +21,14 @@ const handleError = (message: string = 'Something went wrong. Try again') => {
 };
 
 export const postsService = {
+  async getUserPosts(username: string) {
+    try {
+      const { data } = await api.get<UserPostsModel[]>(`/users/${username}`);
+      return data;
+    } catch (error) {
+      handleError(error.response?.data);
+    }
+  },
   async getPosts() {
     try {
       const { data } = await api.get<PostModel[]>('/');
