@@ -22,6 +22,7 @@ export default function UserPostsPage({
 }: UserPostsPageProps) {
   const { status } = useSession();
   const { author } = posts[0];
+  const count = posts[0].author._count.posts;
 
   if (status === 'loading') {
     return <Spinner fullscreen width={40} height={40} />;
@@ -41,14 +42,14 @@ export default function UserPostsPage({
     <Layout>
       <Head>
         <title>
-          {posts[0].author.name} (@{username}) / Stories
+          {author.name} (@{username}) / Stories
         </title>
       </Head>
 
       <AuthorInfo
         className="flex flex-col items-start bg-white rounded p-8 pb-0 overflow-hidden"
         username={username}
-        author={author}
+        author={{ ...author, count }}
       />
 
       <section className="bg-white rounded p-8 mb-8">

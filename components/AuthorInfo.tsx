@@ -1,4 +1,4 @@
-import { InboxIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, InboxIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { HTMLAttributes } from 'react';
 
@@ -8,6 +8,7 @@ interface AuthorInfoProps extends HTMLAttributes<HTMLDivElement> {
     name: string;
     email: string;
     image: string;
+    count: number;
   };
 }
 
@@ -16,6 +17,8 @@ export const AuthorInfo = ({
   author,
   ...sectionAttrs
 }: AuthorInfoProps) => {
+  const storiesCount = author.count > 1 ? 'stories' : 'story';
+
   return (
     <section {...sectionAttrs}>
       <Image
@@ -34,6 +37,9 @@ export const AuthorInfo = ({
       >
         <InboxIcon width={20} height={20} /> {author.email}
       </h3>
+      <p className="flex gap-1 items-center text-zinc-500">
+        <BookOpenIcon width={20} height={20} /> {author.count} {storiesCount}
+      </p>
     </section>
   );
 };
