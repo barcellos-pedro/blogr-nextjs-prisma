@@ -28,7 +28,7 @@
 
 <img width="960" alt="image" src="https://user-images.githubusercontent.com/33139500/194867594-a7c33efd-9536-4a0e-b277-9748ec897627.png" style='border-radius:4px'>
 
-> Project based on Vercel guide [How to Build a Fullstack App with Next.js, Prisma, and PostgreSQL](https://vercel.com/guides/nextjs-prisma-postgres)
+> Enhanced project based on Vercel guide [How to Build a Fullstack App with Next.js, Prisma, and PostgreSQL](https://vercel.com/guides/nextjs-prisma-postgres)
 
 ## **Demo**
 
