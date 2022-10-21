@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { HTMLAttributes, ReactNode } from 'react';
+import { ogURL } from '../utils/og-url';
 import { BackToHome } from './BackToHome';
 import { Header } from './Header';
 
@@ -18,10 +19,9 @@ export const Layout = ({
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="og:title" content="Stories" />
-        <meta
-          name="description"
-          content="Register all the stories you care ❤️"
-        />
+        <meta name="og:site_name" content="Stories" />
+        <meta name="og:description" content="Register stories you care ❤️" />
+        <meta name="og:image" content={ogURL} />
       </Head>
 
       <Header />
