@@ -19,8 +19,7 @@ export default function () {
         }}
       >
         <img
-          width="256"
-          height="256"
+          width="100%"
           src="https://barcellos-pedro-blogr-nextjs-prisma.vercel.app/images/logo.png"
           style={{
             borderRadius: '100%',
