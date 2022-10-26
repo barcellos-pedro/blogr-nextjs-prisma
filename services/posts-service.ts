@@ -23,7 +23,7 @@ const handleError = (message: string = 'Something went wrong. Try again') => {
 export const postsService = {
   async getUserPosts(username: string) {
     try {
-      const { data } = await api.get<UserPostsModel[]>(`/users/${username}`);
+      const { data } = await api.get<UserPostsModel>(`/users/${username}`);
       return data;
     } catch (error) {
       handleError(error.response?.data);
