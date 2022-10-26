@@ -27,13 +27,8 @@ export const LoggedInLinks = ({ user }: LoggedInLinksProps) => {
 
       {/* Logged in User Menu */}
       <Popover className="relative">
-        <Popover.Button className="ring ring-transparent rounded-full outline-none focus:ring-zinc-400 hover:ring-zinc-400 duration-300">
-          <Image
-            width={50}
-            height={50}
-            src={user.image}
-            className="rounded-full"
-          />
+        <Popover.Button className="ring-4 ring-transparent rounded-full outline-none flex overflow-hidden focus:ring-zinc-400 hover:ring-zinc-400 duration-300">
+          <Image width={50} height={50} src={user.image} />
         </Popover.Button>
         <Popover.Panel className="absolute z-20 mt-2 right-0 flex flex-col bg-white rounded p-4 shadow shadow-zinc-400 ">
           <p className="text-center w-full font-semibold">{user.name}</p>
