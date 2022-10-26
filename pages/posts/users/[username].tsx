@@ -6,29 +6,28 @@ import { Feed } from '../../../components/Feed';
 import { Layout } from '../../../components/Layout';
 import { Spinner } from '../../../components/Spinner';
 import { postsService } from '../../../services/posts-service';
-import { UserPostsModel } from '../../../types/user-posts-model';
 import { AuthorInfo } from '../../../components/AuthorInfo';
+import { UserPostsModel } from '../../../types/user-posts-model';
 
 interface UserPostsPageProps {
-  posts: UserPostsModel[];
+  userPosts: UserPostsModel;
   username: string;
   error?: string;
 }
 
 export default function UserPostsPage({
-  posts,
+  userPosts,
   username,
   error,
 }: UserPostsPageProps) {
   const { status } = useSession();
-  const { author } = posts[0];
-  const count = posts[0].author._count.posts;
+  const { posts, author } = userPosts;
 
   if (status === 'loading') {
     return <Spinner fullscreen width={40} height={40} />;
   }
 
-  if (error || !posts?.length) {
+  if (error) {
     return (
       <Error
         title="Post not found"
@@ -49,7 +48,7 @@ export default function UserPostsPage({
       <AuthorInfo
         className="flex flex-col items-start bg-white rounded p-8 pb-0 overflow-hidden"
         username={username}
-        author={{ ...author, count }}
+        author={author}
       />
 
       <section className="bg-white rounded p-8 mb-8">
@@ -62,15 +61,20 @@ export default function UserPostsPage({
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     const username = params?.username as string;
-    const posts = await postsService.getUserPosts(username);
+    const userPosts: UserPostsModel = await postsService.getUserPosts(username);
 
     return {
-      props: { posts, username },
+      props: { userPosts, username },
     };
   } catch (error) {
     console.error(error);
+
     return {
-      props: { posts: null, username: null, error: error.message },
+      props: {
+        userPosts: null,
+        username: null,
+        error: error.message,
+      },
     };
   }
 };
