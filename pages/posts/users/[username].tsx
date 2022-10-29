@@ -58,10 +58,18 @@ export default function UserPostsPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  res,
+}) => {
   try {
     const username = params?.username as string;
     const userPosts: UserPostsModel = await postsService.getUserPosts(username);
+
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=60, stale-while-revalidate=180'
+    );
 
     return {
       props: { userPosts, username },
